@@ -1,4 +1,6 @@
+# main
 ```markdown
+import 'package:contador/screen/counter_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,62 +12,51 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Contador con flutter',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Contador'),
-    );
+    return const MaterialApp(
+        debugShowCheckedModeBanner: false, home: CounterScreen());
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+```
+# counter_screen
+```markdown
+import 'package:flutter/material.dart';
 
-  final String title;
+class CounterScreen extends StatefulWidget {
+  const CounterScreen({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<CounterScreen> createState() => _CounterScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
+class _CounterScreenState extends State<CounterScreen> {
+  int counter = 0;
   @override
   Widget build(BuildContext context) {
+    const fontSize30 = TextStyle(fontSize: 30);
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: const Text("Contador con Flutter"),
+        elevation: 100,
       ),
+      backgroundColor: const Color.fromARGB(255, 203, 122, 218),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Haz precionado el boton esta cantidad de veces:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Text('Contador de Clicks', style: fontSize30),
+          Text('$counter', style: fontSize30),
+        ]),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Incremento',
-        child: const Icon(Icons.add),
-      ),
+          child: const Icon(Icons.add),
+          onPressed: () {
+            counter++;
+            print("Contando $counter");
+            setState(() {});
+          }),
     );
   }
 }
+
 ```
